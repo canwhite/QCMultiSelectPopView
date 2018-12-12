@@ -20,12 +20,12 @@
         
         
         self.backgroundColor = [UIColor whiteColor];
-        
+        CGFloat width = self.frame.size.width;
         
         UIView *view = [UIView new];
         [self addSubview:view];
         view.backgroundColor = [UIColor whiteColor];
-        view.frame = CGRectMake(0, 0, SCREEN_WIDTH-20, SCREEN_HEIGHT * (40.0/736.0));
+        view.frame = CGRectMake(0, 0, SCREEN_WIDTH - 40, SCREEN_HEIGHT * (40.0/736.0));
 
         self.selectButton = [[UIButton alloc]initWithFrame:view.frame];
         self.selectButton.titleLabel.font = [UIFont systemFontOfSize:13];
@@ -35,8 +35,7 @@
         [self.selectButton addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
         
         [view addSubview:self.selectButton];
-        
-        
+
     }
     return self;
 }

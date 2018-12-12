@@ -50,6 +50,9 @@
 //写一个展示view的操作
 
 
+@property(nonatomic,copy) void(^sendData)(BOOL isCancel);
+
+
 
 
 /**

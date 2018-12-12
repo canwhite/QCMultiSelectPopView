@@ -11,7 +11,7 @@
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 #define LineColor [UIColor colorWithRed:242.0/255.0 green:242.0/255.0 blue:242.0/255.0 alpha:1.0]
-
+#define QCTitleColor [UIColor colorWithRed:103.0/255.0 green:103.0/255.0 blue:103.0/255.0 alpha:1.0]
 
 @interface QCMultiPopView ()<UITableViewDataSource,UITableViewDelegate,MultiViewCell1Delegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -35,16 +35,120 @@
 
 - (void)initTabelView{
     
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-40, self.contentShift) style:UITableViewStylePlain];
+    
+    
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH-40, self.contentShift-80) style:UITableViewStylePlain];
 //    self.tableView.layer.cornerRadius = 10;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[MultiSelectTableViewCell class] forCellReuseIdentifier:@"cell1"];
-
+    
     [self.contentView addSubview:self.tableView];
     
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+
+    
+    
+    CGFloat width = self.tableView.frame.size.width;
+    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, width, 40)];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(width/2-100, 13, 200, 14)];
+    label.text = @"可选内容";
+    //    label.textColor = RGBA(103, 103, 103, 1);
+    label.textAlignment = NSTextAlignmentCenter;
+    [headerView addSubview:label];
+    label.font = [UIFont systemFontOfSize:14];
+    headerView.backgroundColor = [UIColor whiteColor];
+    
+    UIView *lineView = [UIView new];
+    lineView.frame = CGRectMake(0, 39, width, 1);
+    lineView.backgroundColor = LineColor;
+    [headerView  addSubview:lineView];
+    [self.contentView addSubview:headerView];
+
+    
+    UIBezierPath *maskPath1 = [UIBezierPath bezierPathWithRoundedRect:headerView.bounds byRoundingCorners:UIRectCornerTopLeft|UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];
+    CAShapeLayer *maskLayer1 = [[CAShapeLayer alloc] init];
+    maskLayer1.frame = headerView.bounds;
+    maskLayer1.path = maskPath1.CGPath;
+    headerView.layer.mask = maskLayer1;
+
+
+    
+    UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 40 +self.tableView.frame.size.height, width,40)];
+    [self.contentView addSubview:footerView];
+    UIView *lineView2 = [UIView new];
+    [footerView addSubview:lineView2];
+    lineView2.frame = CGRectMake(0, 0, width, 1);
+    lineView2.backgroundColor = LineColor;
+    
+//    UIButton *cancelBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, width/2, 100)];
+    UIButton *cancelBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 1, width/2-1,39)];
+    [footerView addSubview:cancelBtn];
+    [cancelBtn addTarget:self action:@selector(clickCancel:) forControlEvents:UIControlEventTouchUpInside];
+    [cancelBtn setTitle:@"取消" forState:0];
+    cancelBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [cancelBtn setTitleColor:QCTitleColor forState:0];
+    
+    UIView *virLineView = [[UIView alloc]initWithFrame:CGRectMake(width/2-1, 1, 1, 39)];
+    virLineView.backgroundColor = LineColor;
+    [footerView addSubview:virLineView];
+    
+    UIButton *sureBtn = [[UIButton alloc]initWithFrame:CGRectMake(width/2, 1, width/2, 39)];
+    [footerView addSubview:sureBtn];
+    [sureBtn addTarget:self action:@selector(clickSure:) forControlEvents:UIControlEventTouchUpInside];
+    [sureBtn setTitle:@"确定" forState:0];
+    sureBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [sureBtn setTitleColor:QCTitleColor forState:0];
+    
+  
+    
+
+    
 }
+
+
+//点击了取消按钮
+-(void)clickCancel:(UIButton *)btn{
+    
+    if (self.sendData) {
+        self.sendData(YES);
+    }
+    [self removeFromSuperview];
+}
+
+-(void)clickSure:(UIButton *)btn{
+    [self removeFromSuperview];
+}
+
+
+
+//-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+//    CGFloat with = self.tableView.frame.size.width;
+//    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, with, 30)];
+//    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(with/2-100, 8, 200, 14)];
+//    label.text = @"表头";
+//    //    label.textColor = RGBA(103, 103, 103, 1);
+//    label.textAlignment = NSTextAlignmentCenter;
+//    [view addSubview:label];
+//    view.backgroundColor = [UIColor whiteColor];
+//
+//    UIView *lineView = [UIView new];
+//    lineView.frame = CGRectMake(0, 29, with, 1);
+//    lineView.backgroundColor = [UIColor grayColor];
+//    [view addSubview:lineView];
+//
+//
+//    return view;
+//
+//}
+//-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+//    CGFloat with = self.tableView.frame.size.width;
+//    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, with, 45)];
+//
+//
+//    return view;
+//}
 
 
 
@@ -55,8 +159,8 @@
 - (void)initAttribute{
     
     self.buttonH = SCREEN_HEIGHT * (40.0/736.0)+1;
-    self.buttonMargin = 10;
-    self.contentShift = SCREEN_HEIGHT * (250.0/736.0);
+    self.buttonMargin = 5;
+    self.contentShift = SCREEN_HEIGHT * (400.0/736.0);
     self.animationTime = 0.8;
     self.backgroundColor = [UIColor colorWithWhite:0.614 alpha:0.700];
     
@@ -110,13 +214,13 @@
     
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
-    
-    [self dismissThePopView];
-    
-    
-}
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+//
+//    
+//    [self dismissThePopView];
+//
+//
+//}
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

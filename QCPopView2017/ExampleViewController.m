@@ -85,6 +85,14 @@
         self.hasSelectArr = [NSMutableArray new];
     //传递数据
     [_QCMultiPopView showThePopViewWithArray:self.titleArray];
+    __weak typeof(self) weakSelf = self;
+    _QCMultiPopView.sendData = ^(BOOL isCancel) {
+        if (isCancel) {
+            typeof(weakSelf) strongSelf = weakSelf;
+            [strongSelf.hasSelectArr removeAllObjects];
+            NSLog(@"我点击了取消按钮，数组已经被清空");
+        }
+    };
     
     
 }
@@ -96,13 +104,13 @@
     
     NSString *buttonStr = self.titleArray[indexPath.row];
     [_testButton setTitle:buttonStr forState:UIControlStateNormal];
-    
+    //0就是没选中
     if ([state isEqual:@"0"]) {
         if ([self.hasSelectArr containsObject:self.titleArray[indexPath.row]]) {
             [self.hasSelectArr removeObject:self.titleArray[indexPath.row]];
         }
         
-        
+    //1就是选中了
     }else if ([state isEqual:@"1"]){
         
         if (![self.hasSelectArr containsObject:self.titleArray[indexPath.row]]) {
