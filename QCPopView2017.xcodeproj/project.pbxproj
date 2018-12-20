@@ -15,10 +15,10 @@
 		F664DE8C1F3992C30039CC0F /* QCPopView2017Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = F664DE8B1F3992C30039CC0F /* QCPopView2017Tests.m */; };
 		F664DE971F3992C30039CC0F /* QCPopView2017UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = F664DE961F3992C30039CC0F /* QCPopView2017UITests.m */; };
 		F664DEA61F3993260039CC0F /* ExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F664DEA51F3993260039CC0F /* ExampleViewController.m */; };
-		F678556C215C7E9300D7775A /* multi_select.png in Resources */ = {isa = PBXBuildFile; fileRef = F6785566215C7E9200D7775A /* multi_select.png */; };
-		F678556D215C7E9300D7775A /* multi_unselect.png in Resources */ = {isa = PBXBuildFile; fileRef = F6785567215C7E9200D7775A /* multi_unselect.png */; };
-		F678556E215C7E9300D7775A /* MultiSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F6785569215C7E9200D7775A /* MultiSelectTableViewCell.m */; };
-		F678556F215C7E9300D7775A /* QCMultiPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = F678556B215C7E9200D7775A /* QCMultiPopView.m */; };
+		F6783E8F21C9EE6200AFF0EE /* multi_select.png in Resources */ = {isa = PBXBuildFile; fileRef = F6783E8921C9EE6200AFF0EE /* multi_select.png */; };
+		F6783E9021C9EE6200AFF0EE /* multi_unselect.png in Resources */ = {isa = PBXBuildFile; fileRef = F6783E8A21C9EE6200AFF0EE /* multi_unselect.png */; };
+		F6783E9121C9EE6200AFF0EE /* MultiSelectUpdateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F6783E8C21C9EE6200AFF0EE /* MultiSelectUpdateTableViewCell.m */; };
+		F6783E9221C9EE6200AFF0EE /* QCMultiUpdatePopView.m in Sources */ = {isa = PBXBuildFile; fileRef = F6783E8E21C9EE6200AFF0EE /* QCMultiUpdatePopView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,12 +55,12 @@
 		F664DE981F3992C30039CC0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F664DEA41F3993260039CC0F /* ExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleViewController.h; sourceTree = "<group>"; };
 		F664DEA51F3993260039CC0F /* ExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExampleViewController.m; sourceTree = "<group>"; };
-		F6785566215C7E9200D7775A /* multi_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = multi_select.png; sourceTree = "<group>"; };
-		F6785567215C7E9200D7775A /* multi_unselect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = multi_unselect.png; sourceTree = "<group>"; };
-		F6785568215C7E9200D7775A /* MultiSelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiSelectTableViewCell.h; sourceTree = "<group>"; };
-		F6785569215C7E9200D7775A /* MultiSelectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiSelectTableViewCell.m; sourceTree = "<group>"; };
-		F678556A215C7E9200D7775A /* QCMultiPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCMultiPopView.h; sourceTree = "<group>"; };
-		F678556B215C7E9200D7775A /* QCMultiPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QCMultiPopView.m; sourceTree = "<group>"; };
+		F6783E8921C9EE6200AFF0EE /* multi_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = multi_select.png; sourceTree = "<group>"; };
+		F6783E8A21C9EE6200AFF0EE /* multi_unselect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = multi_unselect.png; sourceTree = "<group>"; };
+		F6783E8B21C9EE6200AFF0EE /* MultiSelectUpdateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiSelectUpdateTableViewCell.h; sourceTree = "<group>"; };
+		F6783E8C21C9EE6200AFF0EE /* MultiSelectUpdateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiSelectUpdateTableViewCell.m; sourceTree = "<group>"; };
+		F6783E8D21C9EE6200AFF0EE /* QCMultiUpdatePopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCMultiUpdatePopView.h; sourceTree = "<group>"; };
+		F6783E8E21C9EE6200AFF0EE /* QCMultiUpdatePopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QCMultiUpdatePopView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,7 +115,7 @@
 				F664DE751F3992C20039CC0F /* AppDelegate.m */,
 				F664DEA41F3993260039CC0F /* ExampleViewController.h */,
 				F664DEA51F3993260039CC0F /* ExampleViewController.m */,
-				F6785565215C7E9200D7775A /* QCMultiPopView */,
+				F6783E8821C9EE6200AFF0EE /* QCMultiUpdatePopView */,
 				F664DE7A1F3992C20039CC0F /* Main.storyboard */,
 				F664DE7D1F3992C20039CC0F /* Assets.xcassets */,
 				F664DE7F1F3992C20039CC0F /* LaunchScreen.storyboard */,
@@ -151,17 +151,17 @@
 			path = QCPopView2017UITests;
 			sourceTree = "<group>";
 		};
-		F6785565215C7E9200D7775A /* QCMultiPopView */ = {
+		F6783E8821C9EE6200AFF0EE /* QCMultiUpdatePopView */ = {
 			isa = PBXGroup;
 			children = (
-				F678556A215C7E9200D7775A /* QCMultiPopView.h */,
-				F678556B215C7E9200D7775A /* QCMultiPopView.m */,
-				F6785568215C7E9200D7775A /* MultiSelectTableViewCell.h */,
-				F6785569215C7E9200D7775A /* MultiSelectTableViewCell.m */,
-				F6785566215C7E9200D7775A /* multi_select.png */,
-				F6785567215C7E9200D7775A /* multi_unselect.png */,
+				F6783E8921C9EE6200AFF0EE /* multi_select.png */,
+				F6783E8A21C9EE6200AFF0EE /* multi_unselect.png */,
+				F6783E8B21C9EE6200AFF0EE /* MultiSelectUpdateTableViewCell.h */,
+				F6783E8C21C9EE6200AFF0EE /* MultiSelectUpdateTableViewCell.m */,
+				F6783E8D21C9EE6200AFF0EE /* QCMultiUpdatePopView.h */,
+				F6783E8E21C9EE6200AFF0EE /* QCMultiUpdatePopView.m */,
 			);
-			path = QCMultiPopView;
+			path = QCMultiUpdatePopView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,9 +271,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F664DE811F3992C20039CC0F /* LaunchScreen.storyboard in Resources */,
-				F678556C215C7E9300D7775A /* multi_select.png in Resources */,
+				F6783E8F21C9EE6200AFF0EE /* multi_select.png in Resources */,
 				F664DE7E1F3992C20039CC0F /* Assets.xcassets in Resources */,
-				F678556D215C7E9300D7775A /* multi_unselect.png in Resources */,
+				F6783E9021C9EE6200AFF0EE /* multi_unselect.png in Resources */,
 				F664DE7C1F3992C20039CC0F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -299,11 +299,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6783E9121C9EE6200AFF0EE /* MultiSelectUpdateTableViewCell.m in Sources */,
 				F664DEA61F3993260039CC0F /* ExampleViewController.m in Sources */,
+				F6783E9221C9EE6200AFF0EE /* QCMultiUpdatePopView.m in Sources */,
 				F664DE761F3992C20039CC0F /* AppDelegate.m in Sources */,
-				F678556F215C7E9300D7775A /* QCMultiPopView.m in Sources */,
 				F664DE731F3992C20039CC0F /* main.m in Sources */,
-				F678556E215C7E9300D7775A /* MultiSelectTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,6 +1,6 @@
 //
 //  AppDelegate.h
-//  QCMultiPopView2017
+//  QCMultiUpdatePopView2017
 //
 //  Created by 乔超 on 2017/8/8.
 //  Copyright © 2017年 BoYaXun. All rights reserved.

@@ -1,22 +1,23 @@
 //
 //  ExampleViewController.m
-//  QCMultiPopView
+//  QCMultiUpdatePopView
 //
 //  Created by 乔超 on 2017/8/8.
 //  Copyright © 2017年 BoYaXun. All rights reserved.
 //
 
 #import "ExampleViewController.h"
-#import "QCMultiPopView.h"
+#import "QCMultiUpdatePopView.h"
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
-@interface ExampleViewController ()<QCMultiPopViewDelegate>
+@interface ExampleViewController ()<QCMultiUpdatePopViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *titleArray;
 @property (nonatomic, strong) NSMutableArray *imageArr;
 @property (nonatomic, strong) UIButton *testButton;
-@property (nonatomic, strong) QCMultiPopView *QCMultiPopView;
+@property (nonatomic, strong) QCMultiUpdatePopView *QCMultiUpdatePopView;
 @property(nonatomic,strong) NSMutableArray *hasSelectArr;
+@property(nonatomic,strong) NSMutableArray *flagArr;
 
 
 @end
@@ -48,6 +49,14 @@
     return _imageArr;
 }
 
+-(NSMutableArray *)flagArr{
+    
+    if (!_flagArr) {
+        _flagArr = [NSMutableArray new];
+    }
+    return _flagArr;
+}
+
 - (void)initTitleArray{
     //给此数组传递popView的各项标题
     [self.titleArray addObject:@"测试1"];
@@ -59,6 +68,23 @@
     [self.titleArray addObject:@"测试7"];
     [self.titleArray addObject:@"测试8"];
     [self.titleArray addObject:@"测试9"];
+    
+    
+    [self.flagArr  addObject:@"0"];
+    [self.flagArr  addObject:@"1"];
+    [self.flagArr  addObject:@"0"];
+    [self.flagArr  addObject:@"1"];
+    [self.flagArr  addObject:@"0"];
+    [self.flagArr  addObject:@"1"];
+    [self.flagArr  addObject:@"0"];
+    [self.flagArr  addObject:@"1"];
+    [self.flagArr  addObject:@"0"];
+    
+    
+
+    
+    
+    
     
 
     
@@ -78,26 +104,58 @@
 
 - (void)buttonClick{
     
-    //初始化
-    _QCMultiPopView = [[QCMultiPopView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width , self.view.frame.size.height)];
+    
+    //MARK:初始化选中数据
+    self.hasSelectArr = [NSMutableArray new];
+    [self.flagArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isEqual:@"1"]) {
+            [self.hasSelectArr addObject:self.titleArray[idx]];
+        }
+    }];
+    
+    [self popWithNameArr:self.titleArray AndStateArr:self.flagArr];
+    
+
+
+}
+
+#pragma mark - 创建和弹出
+-(void)popWithNameArr:(NSMutableArray *)nameArr AndStateArr:(NSMutableArray *)stateArr{
+    
+    
+    //初始化，
+    _QCMultiUpdatePopView = [[QCMultiUpdatePopView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width , self.view.frame.size.height)];
     //遵守协议
-    _QCMultiPopView.QCMultiPopViewDelegate = self;
-        self.hasSelectArr = [NSMutableArray new];
+    _QCMultiUpdatePopView.QCMultiUpdatePopViewDelegate = self;
+    
+    //    _QCMultiUpdatePopView.selectArr = self.flagArr;//展示选中效果
     //传递数据
-    [_QCMultiPopView showThePopViewWithArray:self.titleArray];
+    [_QCMultiUpdatePopView showThePopViewWithArray:nameArr andState:stateArr];
     __weak typeof(self) weakSelf = self;
-    _QCMultiPopView.sendData = ^(BOOL isCancel) {
+    //MARK:取消
+    _QCMultiUpdatePopView.isCancel = ^(BOOL isCancel) {
         if (isCancel) {
             typeof(weakSelf) strongSelf = weakSelf;
             [strongSelf.hasSelectArr removeAllObjects];
             NSLog(@"我点击了取消按钮，数组已经被清空");
         }
     };
+    //MARK:确认
+    _QCMultiUpdatePopView.isSure = ^(BOOL isSure) {
+        //进行一些请求上传的工作
+        typeof(weakSelf) strongSelf = weakSelf;
+        [strongSelf.hasSelectArr removeAllObjects];
+        NSLog(@"%@",@"我点击了确认按钮，在这里给后台发送请求，记住状态");
+        
+    };
+    
+    
     
     
 }
 
-#pragma mark - QCMultiPopViewDelegate
+
+#pragma mark - QCMultiUpdatePopViewDelegate
 
 -(void)getTheButtonTitleWithIndexPath:(NSIndexPath *)indexPath andState:(NSString *)state{
     
@@ -119,12 +177,12 @@
         
     }
     
-    NSLog(@"$$$$$$$%@",[self jointStringByMutableArr:self.hasSelectArr]);
+    NSLog(@"=====%@",[self jointStringByMutableArr:self.hasSelectArr]);
     
 
 }
 
-
+#pragma mark - 字符串拼接
 -(NSString *)jointStringByMutableArr:(NSMutableArray *)arr{
     
     NSString *pinStr = @"";

@@ -1,16 +1,16 @@
 //
-//  MultiSelectTableViewCell.m
-//  QCMultiPopView2017
+//  MultiSelectUpdateTableViewCell.m
+//  QCMultiUpdatePopView2017
 //
 //  Created by EricZhang on 2018/9/27.
 //  Copyright © 2018年 BoYaXun. All rights reserved.
 //
 
-#import "MultiSelectTableViewCell.h"
+#import "MultiSelectUpdateTableViewCell.h"
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 #define LineColor [UIColor colorWithRed:242.0/255.0 green:242.0/255.0 blue:242.0/255.0 alpha:1.0]
-@implementation MultiSelectTableViewCell
+@implementation MultiSelectUpdateTableViewCell
 
 
 -(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -20,7 +20,7 @@
         
         
         self.backgroundColor = [UIColor whiteColor];
-        CGFloat width = self.frame.size.width;
+//        CGFloat width = self.frame.size.width;
         
         UIView *view = [UIView new];
         [self addSubview:view];

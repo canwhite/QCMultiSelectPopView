@@ -1,6 +1,6 @@
 //
-//  QCMultiPopView2017UITests.m
-//  QCMultiPopView2017UITests
+//  QCMultiUpdatePopView2017UITests.m
+//  QCMultiUpdatePopView2017UITests
 //
 //  Created by EricZhang on 2017/8/8.
 //  Copyright © 2017年 BoYaXun. All rights reserved.
@@ -8,11 +8,11 @@
 
 #import <XCTest/XCTest.h>
 
-@interface QCMultiPopView2017UITests : XCTestCase
+@interface QCMultiUpdatePopView2017UITests : XCTestCase
 
 @end
 
-@implementation QCMultiPopView2017UITests
+@implementation QCMultiUpdatePopView2017UITests
 
 - (void)setUp {
     [super setUp];

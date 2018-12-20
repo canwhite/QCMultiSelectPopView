@@ -1,5 +1,5 @@
 //
-//  QCMultiPopView.h
+//  QCMultiUpdatePopView.h
 //  test
 //
 //  Created by 乔超 on 2017/8/8.
@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-@protocol QCMultiPopViewDelegate <NSObject>
+@protocol QCMultiUpdatePopViewDelegate <NSObject>
 
 - (void)getTheButtonTitleWithIndexPath:(NSIndexPath *)indexPath andState:(NSString*) state;
 
 @end
 
-@interface QCMultiPopView : UIView
+@interface QCMultiUpdatePopView : UIView
 /**
  *  内容视图
  */
@@ -38,20 +38,24 @@
  * tableView的高度
  */
 @property (nonatomic, assign) CGFloat tableViewH;
-@property (nonatomic, weak) id <QCMultiPopViewDelegate> QCMultiPopViewDelegate ;
+@property (nonatomic, weak) id <QCMultiUpdatePopViewDelegate> QCMultiUpdatePopViewDelegate ;
 
 /**
  *  展示popView
  *
  *  @param array button的title数组
  */
-- (void)showThePopViewWithArray:(NSMutableArray *)array;
+- (void)showThePopViewWithArray:(NSMutableArray *)array andState:(NSMutableArray *)state;
 
-//写一个展示view的操作
+/*
+ *   取消返回清空操作
+ */
+@property(nonatomic,copy) void(^isCancel)(BOOL isCancel);
 
-
-@property(nonatomic,copy) void(^sendData)(BOOL isCancel);
-
+/*
+ *   确认返回清空操作
+ */
+@property(nonatomic,copy) void (^isSure)(BOOL isSure);
 
 
 

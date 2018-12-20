@@ -1,26 +1,27 @@
 //
-//  QCMultiPopView.m
+//  QCMultiUpdatePopView.m
 //  test
 //
 //  Created by 乔超 on 2017/8/8.
 //  Copyright © 2017年 BoYaXun. All rights reserved.
 //
 
-#import "QCMultiPopView.h"
-#import "MultiSelectTableViewCell.h"
+#import "QCMultiUpdatePopView.h"
+#import "MultiSelectUpdateTableViewCell.h"
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 #define LineColor [UIColor colorWithRed:242.0/255.0 green:242.0/255.0 blue:242.0/255.0 alpha:1.0]
 #define QCTitleColor [UIColor colorWithRed:103.0/255.0 green:103.0/255.0 blue:103.0/255.0 alpha:1.0]
 
-@interface QCMultiPopView ()<UITableViewDataSource,UITableViewDelegate,MultiViewCell1Delegate>
+@interface QCMultiUpdatePopView ()<UITableViewDataSource,UITableViewDelegate,MultiViewCell1Delegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataSource;
 @property (nonatomic, strong) NSArray *imageSource;
 @property (nonatomic, strong) UIView *bgView;
-@property (nonatomic,strong) NSMutableArray *selectArr;
+@property (nonatomic,strong) NSMutableArray *selectArr;//state标志
+
 @end
-@implementation QCMultiPopView
+@implementation QCMultiUpdatePopView
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
@@ -35,14 +36,12 @@
 
 - (void)initTabelView{
     
-    
-    
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH-40, self.contentShift-80) style:UITableViewStylePlain];
 //    self.tableView.layer.cornerRadius = 10;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.tableView registerClass:[MultiSelectTableViewCell class] forCellReuseIdentifier:@"cell1"];
+    [self.tableView registerClass:[MultiSelectUpdateTableViewCell class] forCellReuseIdentifier:@"cell1"];
     
     [self.contentView addSubview:self.tableView];
     
@@ -100,10 +99,7 @@
     [sureBtn setTitle:@"确定" forState:0];
     sureBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [sureBtn setTitleColor:QCTitleColor forState:0];
-    
-  
-    
-
+    //
     
 }
 
@@ -111,45 +107,31 @@
 //点击了取消按钮
 -(void)clickCancel:(UIButton *)btn{
     
-    if (self.sendData) {
-        self.sendData(YES);
+//    if (self.sendData) {
+//        self.sendData(YES);
+//    }
+    
+    if (self.isCancel) {
+        self.isCancel(YES);
     }
+    
+    [self.selectArr removeAllObjects];
+    self.selectArr = nil;
+    
     [self removeFromSuperview];
 }
 
+//点击确认
 -(void)clickSure:(UIButton *)btn{
+    
+    if (self.isSure) {
+        self.isSure(YES);
+    }
+    [self.selectArr removeAllObjects];
+    self.selectArr  = nil;
+    
     [self removeFromSuperview];
 }
-
-
-
-//-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    CGFloat with = self.tableView.frame.size.width;
-//    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, with, 30)];
-//    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(with/2-100, 8, 200, 14)];
-//    label.text = @"表头";
-//    //    label.textColor = RGBA(103, 103, 103, 1);
-//    label.textAlignment = NSTextAlignmentCenter;
-//    [view addSubview:label];
-//    view.backgroundColor = [UIColor whiteColor];
-//
-//    UIView *lineView = [UIView new];
-//    lineView.frame = CGRectMake(0, 29, with, 1);
-//    lineView.backgroundColor = [UIColor grayColor];
-//    [view addSubview:lineView];
-//
-//
-//    return view;
-//
-//}
-//-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-//    CGFloat with = self.tableView.frame.size.width;
-//    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, with, 45)];
-//
-//
-//    return view;
-//}
-
 
 
 /**
@@ -185,42 +167,24 @@
  *
  *  @param array 需要显示button的title数组
  */
-- (void)showThePopViewWithArray:(NSMutableArray *)array{
+- (void)showThePopViewWithArray:(NSMutableArray *)array andState:(NSMutableArray *)state{
     UIWindow *window = [[UIApplication sharedApplication].windows firstObject];
     
     [window addSubview:self];
     self.dataSource = array;
-    [self.dataSource enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        [self.selectArr addObject:@"0"];
-    }];
     
+    NSLog(@"%@",state);
+//    [state enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        [self.selectArr addObject:obj];
+//    }];
+    //mutableCopy 返回的是mutableArr ，copy 返回的是nsarray
+    self.selectArr = [state mutableCopy];
+
     NSLog(@"%@",self.selectArr);
-    
-    
-}
--(void)showTheCheckViewWithArray:(NSMutableArray *)array{
 
-    self.imageSource = array;
-    
-    NSLog(@"%@",self.imageSource);
 
 }
 
-- (void)dismissThePopView{
-    
-    
-    [self removeFromSuperview];
-    
-}
-
-//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-//
-//    
-//    [self dismissThePopView];
-//
-//
-//}
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -230,7 +194,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     
-   MultiSelectTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell1" forIndexPath:indexPath];
+   MultiSelectUpdateTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell1" forIndexPath:indexPath];
     NSString * buttonStr = self.dataSource[indexPath.row];
     [cell.selectButton setTitle:buttonStr forState:0];
     cell.delegate = self;
@@ -248,16 +212,15 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-//    if ([self.QCMultiPopViewDelegate respondsToSelector:@selector(getTheButtonTitleWithIndexPath:)]) {
-//        [self.QCMultiPopViewDelegate getTheButtonTitleWithIndexPath:indexPath];
+//    if ([self.QCMultiUpdatePopViewDelegate respondsToSelector:@selector(getTheButtonTitleWithIndexPath:)]) {
+//        [self.QCMultiUpdatePopViewDelegate getTheButtonTitleWithIndexPath:indexPath];
 //    }
 }
-
 
 #pragma mark -- collectioCell1的代理
 -(void)MultiViewCell1DelegateClickWithIndexPath:(NSIndexPath *)indexPath{
     
-    MultiSelectTableViewCell *cell = (MultiSelectTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    MultiSelectUpdateTableViewCell *cell = (MultiSelectUpdateTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
 
     cell.selectButton.selected = !cell.selectButton.selected;
 
@@ -266,22 +229,34 @@
     if (click) {
         [self.selectArr replaceObjectAtIndex:indexPath.row withObject:@"1"];
 
-        if ([self.QCMultiPopViewDelegate respondsToSelector:@selector(getTheButtonTitleWithIndexPath:andState:)]) {
-            [self.QCMultiPopViewDelegate getTheButtonTitleWithIndexPath:indexPath andState:self.selectArr[indexPath.row]];
+        if ([self.QCMultiUpdatePopViewDelegate respondsToSelector:@selector(getTheButtonTitleWithIndexPath:andState:)]) {
+            [self.QCMultiUpdatePopViewDelegate getTheButtonTitleWithIndexPath:indexPath andState:self.selectArr[indexPath.row]];
         }
 
     }else{
         [self.selectArr replaceObjectAtIndex:indexPath.row withObject:@"0"];
-        if ([self.QCMultiPopViewDelegate respondsToSelector:@selector(getTheButtonTitleWithIndexPath:andState:)]) {
-            [self.QCMultiPopViewDelegate getTheButtonTitleWithIndexPath:indexPath andState:self.selectArr[indexPath.row]];
+        if ([self.QCMultiUpdatePopViewDelegate respondsToSelector:@selector(getTheButtonTitleWithIndexPath:andState:)]) {
+            [self.QCMultiUpdatePopViewDelegate getTheButtonTitleWithIndexPath:indexPath andState:self.selectArr[indexPath.row]];
         }
     }
     
 }
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
+    
+    [self dismissThePopView];
+    
+    
+}
+- (void)dismissThePopView{
+    
+    [self removeFromSuperview];
+    
+}
 
 -(NSMutableArray *)selectArr{
-    
+
     if (!_selectArr) {
         _selectArr = [NSMutableArray new];
     }

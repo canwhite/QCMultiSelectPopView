@@ -1,6 +1,6 @@
 //
-//  MultiSelectTableViewCell.h
-//  QCMultiPopView2017
+//  MultiSelectUpdateTableViewCell.h
+//  QCMultiUpdatePopView2017
 //
 //  Created by EricZhang on 2018/9/27.
 //  Copyright © 2018年 BoYaXun. All rights reserved.
@@ -12,7 +12,7 @@
 @end
 
 
-@interface MultiSelectTableViewCell : UITableViewCell
+@interface MultiSelectUpdateTableViewCell : UITableViewCell
 @property(nonatomic,strong) UIButton *selectButton;
 @property(nonatomic,assign) BOOL isSelect;
 @property(nonatomic,weak) id<MultiViewCell1Delegate> delegate;
