@@ -58,6 +58,8 @@
 }
 
 - (void)initTitleArray{
+    
+    
     //给此数组传递popView的各项标题
     [self.titleArray addObject:@"测试1"];
     [self.titleArray addObject:@"测试2"];
@@ -80,13 +82,6 @@
     [self.flagArr  addObject:@"1"];
     [self.flagArr  addObject:@"0"];
     
-    
-
-    
-    
-    
-    
-
     
 }
 
